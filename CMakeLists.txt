@@ -1,6 +1,6 @@
-# examples/MyModule/CMakeLists.txt
+# CMakeLists.txt
 #
-# This file is part of NEST.
+# This file is part of the NEST example module.
 #
 # Copyright (C) 2004 The NEST Initiative
 #
@@ -18,60 +18,24 @@
 # along with NEST.  If not, see <http://www.gnu.org/licenses/>.
 
 cmake_minimum_required( VERSION 2.8.12 )
+
 list( APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake )
 include( ProcessDependencies )
 
-# This CMakeLists.txt is configured to build your external module for NEST. For
-# illustrative reasons this module is called 'my' (change SHORT_NAME to your
-# preferred module name). NEST requires you to extend the 'SLIModule' (see
-# mymodule.h and mymodule.cpp as an example) and provide a module header
-# (see MODULE_HEADER). The subsequent instructions
-#
-# The configuration requires a compiled and installed NEST; if `nest-config` is
-# not in the PATH, please specify the absolute path with `-Dwith-nest=...`.
-#
-# For more informations on how to extend and use your module see:
-#           https://nest.github.io/nest-simulator/extension_modules
-
-# 1) Name your module here, i.e. add later with -Dexternal-modules=my:
+# Name your module here.
 set( SHORT_NAME my )
 
-#    the complete module name is here:
+# Build the complete module name:
 set( MODULE_NAME ${SHORT_NAME}module )
 
-# 2) Add all your sources here and specify dependencies, e.g., link libraries
-set( MODULE_SOURCES
-     mymodule.h mymodule.cpp
-     pif_psc_alpha.cpp pif_psc_alpha.h
-     drop_odd_spike_connection.h
-     step_pattern_builder.h step_pattern_builder.cpp
-     recording_backend_socket.h recording_backend_socket.cpp
-   )
+# We require a module header containing the class description of the class
+# extending the SLIModule
+set( MODULE_HEADER src/${MODULE_NAME}.h )
 
-check_have_sfml_audio()
-if ( HAVE_SFML_AUDIO )
-  list( APPEND MODULE_SOURCES   
-        recording_backend_soundclick.h recording_backend_soundclick.cpp
-      )
-  set( USER_LINK_LIBRARIES sfml-audio )
-  add_definitions( -DHAVE_SFML_AUDIO )
-else ()
-  message( "-- Skip build of recording backend >SoundClick<. sfml-audio is not installed." )
-endif ()
-
-# 3) We require a header name like this:
-set( MODULE_HEADER ${MODULE_NAME}.h )
-# containing the class description of the class extending the SLIModule
-
-# 4) Specify your module version
+# Specify your module version
 set( MODULE_VERSION_MAJOR 1 )
 set( MODULE_VERSION_MINOR 0 )
 set( MODULE_VERSION "${MODULE_VERSION_MAJOR}.${MODULE_VERSION_MINOR}" )
-
-# 5) Leave the rest as is. All files in `sli` will be installed to
-#    `share/nest/sli/`, so that NEST will find the during initialization.
-
-# Leave the call to "project(...)" for after the compiler is determined.
 
 # Set the `nest-config` executable to use during configuration.
 set( with-nest OFF CACHE STRING "Specify the `nest-config` executable." )
@@ -89,10 +53,7 @@ else ()
   set( NEST_CONFIG ${with-nest} )
 endif ()
 
-# Use `nest-config` to get the compile and installation options used with the
-# NEST installation.
-
-# Get the compiler that was used for NEST.
+# Use `nest-config` to get the compiler that was used for NEST.
 execute_process(
     COMMAND ${NEST_CONFIG} --compiler
     RESULT_VARIABLE RES_VAR
@@ -105,12 +66,10 @@ if ( NOT RES_VAR EQUAL 0 )
   message( FATAL_ERROR "Cannot run `${NEST_CONFIG}`. Please specify correct `nest-config` via -Dwith-nest=... " )
 endif ()
 
-# Setting the compiler has to happen before the call to "project(...)" function.
 set( CMAKE_CXX_COMPILER "${NEST_COMPILER}" )
-
 project( ${MODULE_NAME} CXX )
 
-# Get the Python executable (for help generation).
+# Use `nest-config` to get the Python executable (for help generation).
 execute_process(
     COMMAND ${NEST_CONFIG} --python-executable
     RESULT_VARIABLE RES_VAR
@@ -271,34 +230,7 @@ foreach( LINKLIB ${USER_LINK_LIBRARIES} )
   endif()
 endforeach()
 
-if ( BUILD_SHARED_LIBS )
-  # When building shared libraries, also create a module for loading at runtime
-  # with the `Install` command.
-  add_library( ${MODULE_NAME}_module MODULE ${MODULE_SOURCES} )
-  target_link_libraries(${MODULE_NAME}_module ${USER_LINK_LIBRARIES})
-  set_target_properties( ${MODULE_NAME}_module
-      PROPERTIES
-      COMPILE_FLAGS "${NEST_CXXFLAGS} -DLTX_MODULE"
-      LINK_FLAGS "${NEST_LIBS}"
-      PREFIX ""
-      OUTPUT_NAME ${MODULE_NAME} )
-  install( TARGETS ${MODULE_NAME}_module
-      DESTINATION ${CMAKE_INSTALL_LIBDIR}/nest
-      )
-endif ()
-
-# Build dynamic/static library for standard linking from NEST.
-add_library( ${MODULE_NAME}_lib ${MODULE_SOURCES} )
-if ( BUILD_SHARED_LIBS )
-  # Dynamic libraries are initiated by a `global` variable of the `SLIModule`,
-  # which is included, when the flag `LINKED_MODULE` is set.
-  target_compile_definitions( ${MODULE_NAME}_lib PRIVATE -DLINKED_MODULE )
-endif ()
-set_target_properties( ${MODULE_NAME}_lib
-    PROPERTIES
-    COMPILE_FLAGS "${NEST_CXXFLAGS}"
-    LINK_FLAGS "${NEST_LIBS}"
-    OUTPUT_NAME ${MODULE_NAME} )
+add_subdirectory( src )
 
 # Install library, header and sli init files.
 install( TARGETS ${MODULE_NAME}_lib DESTINATION ${CMAKE_INSTALL_LIBDIR}/nest )
@@ -338,8 +270,7 @@ if ( ( NOT CMAKE_CROSSCOMPILING )
          )"
       )
 
-endif ()
-
+  endif ()
 
 message( "" )
 message( "-------------------------------------------------------" )
@@ -360,21 +291,27 @@ message( "You can now build and install '${MODULE_NAME}' using" )
 message( "  make" )
 message( "  make install" )
 message( "" )
-message( "The library file lib${MODULE_NAME}.so will be installed to" )
+if ( "${CMAKE_HOST_SYSTEM_NAME}" MATCHES "^Darwin.*" )
+  message( "The library file lib${MODULE_NAME}.dylib will be installed to" )
+else ()
+  message( "The library file lib${MODULE_NAME}.so will be installed to" )
+endif()
 message( "  ${CMAKE_INSTALL_FULL_LIBDIR}/nest/" )
 message( "Help files will be installed to" )
 message( "  ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_DOCDIR}" )
 message( "" )
 message( "The module can be loaded into NEST using" )
-message( "  (${MODULE_NAME}) Install        (in SLI)" )
 message( "  nest.Install('${MODULE_NAME}')  (in PyNEST)" )
+message( "  (${MODULE_NAME}) Install        (in SLI)" )
 message( "" )
 
 if( NOT "${CMAKE_INSTALL_PREFIX}" STREQUAL "${NEST_INSTALL_PREFIX}" )
   message( "The module will be installed into a non-default location!" )
   message( "Make sure to set the environment variables:" )
-  message( "  export LD_LIBRARY_PATH=${CMAKE_INSTALL_FULL_LIBDIR}/nest:$LD_LIBRARY_PATH" )
-  message( "Note that on the Mac, the variable LD_LIBRARY_PATH is called DYLD_LIBRARY_PATH." )
-  message( "  export SLI_PATH=${CMAKE_INSTALL_FULL_DATADIR}/sli:$SLI_PATH" )
+  if ( "${CMAKE_HOST_SYSTEM_NAME}" MATCHES "^Darwin.*" )
+    message( "  export DYLD_LIBRARY_PATH=${CMAKE_INSTALL_FULL_LIBDIR}/nest:$DYLD_LIBRARY_PATH" )
+  else ()
+    message( "  export LD_LIBRARY_PATH=${CMAKE_INSTALL_FULL_LIBDIR}/nest:$LD_LIBRARY_PATH" )
+  endif()
   message( "" )
 endif ()

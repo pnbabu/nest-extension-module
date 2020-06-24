@@ -51,7 +51,7 @@ nest::RecordingBackendSoundClick::finalize()
 }
 
 void
-nest::RecordingBackendSoundClick::enroll( const RecordingDevice& device const DictionaryDatum& )
+nest::RecordingBackendSoundClick::enroll( const RecordingDevice& device, const DictionaryDatum& )
 {
   if ( device.get_type() != RecordingDevice::SPIKE_DETECTOR )
   {

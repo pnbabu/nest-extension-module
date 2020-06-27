@@ -65,7 +65,7 @@ cmake \
     -Dwith-optimize=ON -Dwith-warning=ON \
     -Dwith-mpi=ON \
     $CONFIGURE_PYTHON \
-    -DCMAKE_INSTALL_PREFIX=$HOME/install
+    -DCMAKE_INSTALL_PREFIX=$HOME/install \
     ..
 
 make VERBOSE=1
@@ -78,7 +78,7 @@ cmake \
     -Dwith-nest=$HOME/install/bin/nest-config \
     -Dwith-mpi=ON \
     $CONFIGURE_PYTHON \
-    -DCMAKE_INSTALL_PREFIX=$HOME/install
+    -DCMAKE_INSTALL_PREFIX=$HOME/install \
     ..
 
 # TODO: replace by proper testsuite!

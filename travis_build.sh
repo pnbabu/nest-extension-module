@@ -47,9 +47,9 @@ if [[ $OSTYPE = darwin* ]]; then
     -DPYTHON_LIBRARY=$PYPREFIX/lib/libpython3.7.dylib
     -DPYTHON_INCLUDE_DIR=$PYPREFIX/include/python3.7m/"
 else
-  PYPREFIX="/opt/python/3.6.10/lib"
+  PYPREFIX="/opt/python/3.6.10"
   CONFIGURE_PYTHON="\
-    -DPYTHON_LIBRARY=$PYPREFIX/libpython3.6m.so
+    -DPYTHON_LIBRARY=$PYPREFIX/lib/libpython3.6m.so
     -DPYTHON_INCLUDE_DIR=$PYPREFIX/include/python3.6m/"
 fi
 

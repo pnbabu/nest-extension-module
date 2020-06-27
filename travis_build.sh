@@ -68,8 +68,9 @@ cmake \
     -DCMAKE_INSTALL_PREFIX=$HOME/install \
     ..
 
-make VERBOSE=1
+VERBOSE=1 make -j 2
 make install
+
 
 cd $SOURCEDIR
 mkdir build && cd build
@@ -80,6 +81,9 @@ cmake \
     $CONFIGURE_PYTHON \
     -DCMAKE_INSTALL_PREFIX=$HOME/install \
     ..
+
+VERBOSE=1 make -j 2
+make install
 
 # TODO: replace by proper testsuite!
 python -c 'import nest; nest.Install("mymodule")'

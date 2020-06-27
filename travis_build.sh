@@ -34,10 +34,12 @@ if [[ $OSTYPE = darwin* ]]; then
   export CXX=$(ls /usr/local/bin/g++-* | grep '^/usr/local/bin/g++-\d$')
 fi
 
+SOURCEDIR=$PWD
+cd ..
+
 # Install current NEST version.
-cd $HOME/build
-git clone https://github.com/nest/nest-simulator.git nest-simulator.src
-pushd nest-simulator.src
+git clone https://github.com/nest/nest-simulator.git
+cd nest-simulator
 
 if [[ $OSTYPE = darwin* ]]; then
   PYPREFIX="/usr/local/Cellar/python/3.7.5/Frameworks/Python.framework/Versions/3.7"
@@ -69,8 +71,7 @@ cmake \
 make VERBOSE=1
 make install
 
-popd
-
+cd $SOURCEDIR
 mkdir build && cd build
 cmake \
     -Dwith-optimize=ON -Dwith-warning=ON \

@@ -119,4 +119,6 @@ before_script:
 
 script:
   - set -o pipefail
+  - echo ${PWD}
+  - ls
   - ./travis_build.sh

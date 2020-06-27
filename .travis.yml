@@ -115,7 +115,6 @@ before_install:
 
 before_script:
   - chmod +x travis_build.sh
-  - mkdir ${HOME}/build ${HOME}/install
   - cd ${SOURCEDIR}
 
 script:

@@ -45,8 +45,6 @@ addons:
   apt:
     sources:
       - *BASE_SOURCES
-#      - r-packages-bionic
-#      - ubuntu-toolchain-r-test
       - llvm-toolchain-bionic-9
     packages:
       - *BASE_PACKAGES
@@ -60,8 +58,6 @@ addons:
       - libncurses5-dev
       - libgsl0-dev
       - python3-all-dev
-#      - ipython3
-#      - pkg-config
       - openmpi-bin
       - libopenmpi-dev
       - libboost-filesystem-dev
@@ -72,8 +68,6 @@ addons:
       - libboost-test-dev
       - python3-mpi4py
       - libsfml-dev
-#      - libpcre3
-#      - libpcre3-dev
       - llvm-9-dev
 
 before_install:

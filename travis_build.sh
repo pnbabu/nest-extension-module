@@ -71,7 +71,6 @@ cmake \
 VERBOSE=1 make -j 2
 make install
 
-
 cd $SOURCEDIR
 mkdir build && cd build
 cmake \
@@ -85,6 +84,8 @@ cmake \
 VERBOSE=1 make -j 2
 make install
 
+
 # TODO: replace by proper testsuite!
+. $HOME/install/bin/nest_vars.sh
 python -c 'import nest; nest.Install("mymodule")'
 exit $?

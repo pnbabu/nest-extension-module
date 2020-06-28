@@ -232,8 +232,7 @@ endforeach()
 
 add_subdirectory( src )
 
-# Install library, header and sli init files.
-install( TARGETS ${MODULE_NAME}_lib DESTINATION ${CMAKE_INSTALL_LIBDIR}/nest )
+# Install header and sli init files.
 install( FILES ${MODULE_HEADER} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${MODULE_NAME} )
 install( DIRECTORY sli DESTINATION ${CMAKE_INSTALL_DATADIR} )
 

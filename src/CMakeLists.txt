@@ -65,3 +65,6 @@ set_target_properties( ${MODULE_NAME}_lib
     COMPILE_FLAGS "${NEST_CXXFLAGS}"
     LINK_FLAGS "${NEST_LIBS}"
     OUTPUT_NAME ${MODULE_NAME} )
+
+# Install library
+install( TARGETS ${MODULE_NAME}_lib DESTINATION ${CMAKE_INSTALL_LIBDIR}/nest )

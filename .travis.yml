@@ -71,6 +71,7 @@ addons:
       - libboost-program-options-dev
       - libboost-test-dev
       - python3-mpi4py
+      - libsfml-dev
 #      - libpcre3
 #      - libpcre3-dev
       - llvm-9-dev

@@ -1,7 +1,7 @@
 # NEST Extension Module Example
 
 `MyModule` is an example extension module (i.e a "plugin") for
-the [http://nest-simulator.org/](NEST Simulator). Extension modules
+the [https://nest-simulator.org](NEST Simulator). Extension modules
 allow users to extend the functionality of NEST without messing with
 the source code of NEST itself, thus making pulls from upstream NEST
 easy, while allowing to extend NEST and sharing the extensions with
@@ -30,6 +30,10 @@ In addition to these C++ components, the `sli` directory contains
 custom SLI code for the extension like custom SLI functions, example
 code, or code to initialize the module (which is what the
 `mymodule-init.sli` file is intended for).
+
+For a list of modules developed by other users you can check out the
+[list of forks](https://github.com/nest/nest-extension-module/network/members)
+of this repository.
 
 ## Adapting `MyModule`
 

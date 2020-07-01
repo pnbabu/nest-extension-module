@@ -31,7 +31,7 @@ custom SLI code for the extension like custom SLI functions, example
 code, or code to initialize the module (which is what the
 `mymodule-init.sli` file is intended for).
 
-For a list of modules provided by other users you can check out the
+For a list of modules developed by other users you can check out the
 [list of forks](https://github.com/nest/nest-extension-module/network/members)
 of this repository.
 

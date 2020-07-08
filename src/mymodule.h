@@ -27,48 +27,44 @@
 #include "slifunction.h"
 #include "slimodule.h"
 
-// Put your stuff into your own namespace.
-namespace mynest
+namespace <<MODULE_NAMESPACE>>
 {
 
-/**
- * Class defining your model.
- * @note For each model, you must define one such class, with a unique name.
- */
-class MyModule : public SLIModule
-{
-public:
-  // Interface functions ------------------------------------------
-
   /**
-   * @note The constructor registers the module with the dynamic loader.
-   *       Initialization proper is performed by the init() method.
+   * Class defining the module.
    */
-  MyModule();
+    class <<MODULE_NAME>> : public SLIModule
+  {
+  public:
 
-  /**
-   * @note The destructor does not do much in modules.
-   */
-  ~MyModule() override;
+    /**
+     * The constructor registers the module with the dynamic loader.
+     * Initialization proper is performed by the init() method.
+     */
+    <<MODULE_NAME>>();
 
-  /**
-   * Initialize module.
-   * @param SLIInterpreter* SLI interpreter
-   */
-  void init( SLIInterpreter* ) override;
+    /**
+     * The destructor does not do much in modules.
+     */
+      ~<<MODULE_NAME>>() override;
 
-  /**
-   * Return the name of your model.
-   */
-  const std::string name() const override;
+    /**
+     * Initialize module.
+     * @param SLIInterpreter* SLI interpreter
+     */
+    void init( SLIInterpreter* ) override;
 
-  /**
-   * Return the name of a sli file to execute when mymodule is loaded.
-   * This mechanism can be used to define SLI commands associated with your
-   * module, in particular, set up type tries for functions you have defined.
-   */
-  const std::string commandstring() const override;
+    /**
+     * Return the name of the module.
+     */
+    const std::string name() const override;
+
+    /**
+     * Return the name of a .sli file to execute when the module is loaded.
+     */
+    const std::string commandstring() const override;
 };
-} // namespace mynest
 
-#endif
+} // namespace <<MODULE_NAMESPACE>>
+
+#endif /* #ifndef MYMODULE_H */

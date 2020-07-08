@@ -17,25 +17,10 @@
 # You should have received a copy of the GNU General Public License
 # along with NEST.  If not, see <http://www.gnu.org/licenses/>.
 
-# Add all your sources here and specify dependencies, e.g., link libraries
 set( MODULE_SOURCES
-     mymodule.h mymodule.cpp
-     pif_psc_alpha.cpp pif_psc_alpha.h
-     drop_odd_spike_connection.h
-     step_pattern_builder.h step_pattern_builder.cpp
-     recording_backend_socket.h recording_backend_socket.cpp
-   )
-
-check_have_sfml_audio()
-if ( HAVE_SFML_AUDIO )
-  list( APPEND MODULE_SOURCES   
-        recording_backend_soundclick.h recording_backend_soundclick.cpp
-      )
-  set( USER_LINK_LIBRARIES sfml-audio )
-  add_definitions( -DHAVE_SFML_AUDIO )
-else ()
-  message( "-- Skip build of recording backend >SoundClick<. sfml-audio is not installed." )
-endif ()
+  mymodule.h mymodule.cpp
+  # NOTE: Add your source and header files here
+)
 
 if ( BUILD_SHARED_LIBS )
   # When building shared libraries, also create a module for loading at runtime
@@ -43,14 +28,15 @@ if ( BUILD_SHARED_LIBS )
   add_library( ${MODULE_NAME}_module MODULE ${MODULE_SOURCES} )
   target_link_libraries(${MODULE_NAME}_module ${USER_LINK_LIBRARIES})
   set_target_properties( ${MODULE_NAME}_module
-      PROPERTIES
-      COMPILE_FLAGS "${NEST_CXXFLAGS} -DLTX_MODULE"
-      LINK_FLAGS "${NEST_LIBS}"
-      PREFIX ""
-      OUTPUT_NAME ${MODULE_NAME} )
+    PROPERTIES
+    COMPILE_FLAGS "${NEST_CXXFLAGS} -DLTX_MODULE"
+    LINK_FLAGS "${NEST_LIBS}"
+    PREFIX ""
+    OUTPUT_NAME ${MODULE_NAME}
+  )
   install( TARGETS ${MODULE_NAME}_module
-      DESTINATION ${CMAKE_INSTALL_LIBDIR}/nest
-      )
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/nest
+  )
 endif ()
 
 # Build dynamic/static library for standard linking from NEST.
@@ -61,10 +47,11 @@ if ( BUILD_SHARED_LIBS )
   target_compile_definitions( ${MODULE_NAME}_lib PRIVATE -DLINKED_MODULE )
 endif ()
 set_target_properties( ${MODULE_NAME}_lib
-    PROPERTIES
-    COMPILE_FLAGS "${NEST_CXXFLAGS}"
-    LINK_FLAGS "${NEST_LIBS}"
-    OUTPUT_NAME ${MODULE_NAME} )
+  PROPERTIES
+  COMPILE_FLAGS "${NEST_CXXFLAGS}"
+  LINK_FLAGS "${NEST_LIBS}"
+  OUTPUT_NAME ${MODULE_NAME}
+)
 
 # Install library
 install( TARGETS ${MODULE_NAME}_lib DESTINATION ${CMAKE_INSTALL_LIBDIR}/nest )

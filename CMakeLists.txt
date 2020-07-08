@@ -22,11 +22,7 @@ cmake_minimum_required( VERSION 2.8.12 )
 list( APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake )
 include( ProcessDependencies )
 
-# Name your module here.
-set( SHORT_NAME my )
-
-# Build the complete module name:
-set( MODULE_NAME ${SHORT_NAME}module )
+set( MODULE_NAME <<MODULE_SYMBOL>> )
 
 # We require a module header containing the class description of the class
 # extending the SLIModule

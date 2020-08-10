@@ -101,13 +101,6 @@ mynest::MyModule::name() const
   return std::string( "My NEST Module" ); // Return name of the module
 }
 
-const std::string
-mynest::MyModule::commandstring() const
-{
-  // Instruct the interpreter to load mymodule-init.sli
-  return std::string( "(mymodule-init) run" );
-}
-
 //-------------------------------------------------------------------------------------
 
 void

@@ -26,11 +26,6 @@ or less silly) custom example components:
 * A **recording backend** called `RecordingBackendSoundClick`, which creates the illusion
   of a realistic sound from an electrophysiological recording.
 
-In addition to these C++ components, the `sli` directory contains
-custom SLI code for the extension like custom SLI functions, example
-code, or code to initialize the module (which is what the
-`mymodule-init.sli` file is intended for).
-
 For a list of modules developed by other users you can check out the
 [list of forks](https://github.com/nest/nest-extension-module/network/members)
 of this repository.

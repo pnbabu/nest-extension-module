@@ -28,18 +28,17 @@ sudo: required
 dist: bionic
 
 stages:
-   - Linux-GCC8
-   - macOS-Clang7
+   - Linux
+   - macOS
 
 jobs:
   include:
-    - stage: Linux-GCC8
-      python: 3.6.10
-    - stage: macOS-Clang7
+    - stage: Linux
+      python: 3.8.2
+    - stage: macOS
       os: osx
-      osx_image: xcode10.3 # Python 3.7.5 running on macOS 10.14.4
+      osx_image: xcode12   # Python 3.8.3 running on macOS 10.15.5
       language: shell      # language 'python' results in errors on macOS
-      env: MATRIX_EVAL="CC=clang-7 CXX=clang++-7"
 
 addons:
   apt:

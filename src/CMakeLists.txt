@@ -22,6 +22,9 @@ set( MODULE_SOURCES
   # NOTE: Add your source and header files here
 )
 
+# NOTE: This is the place where you would call custom CMake
+# NOTE: functions defined in cmake/ProcessDependencies.cmake
+
 if ( BUILD_SHARED_LIBS )
   # When building shared libraries, also create a module for loading at runtime
   # with the `Install` command.

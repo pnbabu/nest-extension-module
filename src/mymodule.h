@@ -58,11 +58,6 @@ namespace <<MODULE_NAMESPACE>>
      * Return the name of the module.
      */
     const std::string name() const override;
-
-    /**
-     * Return the name of a .sli file to execute when the module is loaded.
-     */
-    const std::string commandstring() const override;
 };
 
 } // namespace <<MODULE_NAMESPACE>>

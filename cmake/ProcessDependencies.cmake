@@ -16,3 +16,7 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with NEST.  If not, see <http://www.gnu.org/licenses/>.
+
+# NOTE: This is the place where you can add custom CMake functions,
+# NOTE: for example to find libraries or such. For calling such
+# NOTE: functions, see src/CMakeLists.txt

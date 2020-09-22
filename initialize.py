@@ -36,7 +36,8 @@ print(f"""
 Done initializing the extension module.
 
 You can now add your custom source code files to the 'src' directory
-and use them within 'src/mymodule.h' and 'src/mymodule.cpp'.
+and instantiate or register the contained components from within
+'src/mymodule.h' and 'src/mymodule.cpp'.
 
 Once you're done, you can configure the module by running
   mkdir build && cd build

@@ -8,8 +8,6 @@ if len(argv) != 2:
     exit()
 
 module_name = argv[1]
-if not module_name.lower().endswith("module"):
-    module_name += "Module"
 
 print(f"Initializing extension module using name '{module_name}'")
 if input("Continue? [Y/n] ").lower() not in ("", "y"):

@@ -41,7 +41,7 @@ and instantiate or register the contained components from within
 
 Once you're done, you can configure the module by running
   mkdir build && cd build
-  cmake --Dwith-nest=<nest-prefix>/bin/nest-config ..
+  cmake -Dwith-nest=<nest_install_dir>/bin/nest-config ..
 
 To compile and install the module, run
   make && make install

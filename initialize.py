@@ -16,6 +16,7 @@ if input("Continue? [Y/n] ").lower() not in ("", "y"):
 
 fnames = [
     "CMakeLists.txt",
+    "README.md",
     "src/mymodule.cpp",
     "src/mymodule.h"
 ]

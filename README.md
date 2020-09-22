@@ -1,7 +1,7 @@
-# NEST Extension Module for <project>
+# NEST Extension Module for `<<MODULE_NAME>>`
 
 This is just a stand-in for a proper README.md of your extension
-module.
+module. Please adapt and extend according to your needs.
 
 ## Instructions
 

@@ -2,12 +2,28 @@
 
 from fileinput import FileInput
 from sys import argv, exit
+from textwrap import dedent
 
 if len(argv) != 2:
-    print("Usage: initialize_module.py <module_name>")
+    print("Usage: initialize.py <module_name>")
+    print("       initialize.py --help")
+    exit()
+
+if argv[1] == "--help":
+    print(dedent("""
+    This script initializes the extension module template for you by
+    replacing the placeholders <<MODULE_NAME>>, <<MODULE_NAMESPACE>>,
+    and <<MODULE_SYMBOL>> throughout the source code files by actual
+    values based on the given module name. After the initialization,
+    a list of instructions for how to proceed is printed.
+
+    Usage: initialize.py <module_name>
+    """))
     exit()
 
 module_name = argv[1]
+module_symbol = module_name.lower()
+module_namespace = "nest_" + module_symbol
 
 print(f"Initializing extension module using name '{module_name}'")
 
@@ -17,9 +33,6 @@ fnames = [
     "src/mymodule.cpp",
     "src/mymodule.h"
 ]
-
-module_namespace = "nest_" + module_name.lower()
-module_symbol = module_name.lower()
 
 for fname in fnames:
     print(f"Processing file '{fname}'... ")
@@ -45,7 +58,7 @@ To compile and install the module, run
   make && make install
 
 If all goes well, you can then load your module into NEST by
-  nest.Install({module_symbol})
+  nest.Install("{module_symbol}")
 
 More detailed instructions for writing custom extension modules
 can be found at https://github.com/nest/nest-extension-module.

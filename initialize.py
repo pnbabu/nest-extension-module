@@ -10,9 +10,6 @@ if len(argv) != 2:
 module_name = argv[1]
 
 print(f"Initializing extension module using name '{module_name}'")
-if input("Continue? [Y/n] ").lower() not in ("", "y"):
-    print("Aborting.")
-    exit()
 
 fnames = [
     "CMakeLists.txt",

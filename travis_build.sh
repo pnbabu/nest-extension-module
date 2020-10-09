@@ -68,6 +68,7 @@ VERBOSE=1 make -j 2
 make install
 
 cd $SOURCEDIR
+./initialize.py MyModule
 mkdir build && cd build
 cmake \
     -Dwith-optimize=ON -Dwith-warning=ON \

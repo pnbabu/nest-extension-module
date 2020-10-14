@@ -228,9 +228,8 @@ endforeach()
 
 add_subdirectory( src )
 
-# Install header and sli init files.
+# Install header file
 install( FILES ${MODULE_HEADER} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${MODULE_NAME} )
-install( DIRECTORY sli DESTINATION ${CMAKE_INSTALL_DATADIR} )
 
 # Install help --- based on doc/CMakeLists.txt
 # Install only if Py >= 2.7.8 and NEST was installed with help

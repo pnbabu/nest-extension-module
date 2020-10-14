@@ -20,11 +20,11 @@ and more or less silly) custom example components:
   creates step-pattern connectivity between the neurons of a source
   and a target population.
 * A **recording backend** called `RecordingBackendSocket`, which
-  streams out the data from spike detectors to an external (or local)
+  streams out the data from spike recorders to an external (or local)
   server via UDP.
 * A **recording backend** called `RecordingBackendSoundClick`, which
   creates the illusion of a realistic sound from an electrophysiological
-  recording.
+  spike recording device.
 
 For a list of modules developed by other users you can check out the
 [list of forks](https://github.com/nest/nest-extension-module/network/members)

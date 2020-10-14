@@ -58,16 +58,10 @@ public:
   void init( SLIInterpreter* ) override;
 
   /**
-   * Return the name of your model.
+   * Return the name of your module.
    */
   const std::string name() const override;
 
-  /**
-   * Return the name of a sli file to execute when mymodule is loaded.
-   * This mechanism can be used to define SLI commands associated with your
-   * module, in particular, set up type tries for functions you have defined.
-   */
-  const std::string commandstring() const override;
 };
 } // namespace mynest
 

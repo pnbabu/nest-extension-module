@@ -1,10 +1,12 @@
 # NEST Extension Module Example
 
-----
-Please note that the code in this repository is compatible with NEST master
-(aka 3.0) only. For earlier versions of NEST, see the example `MyModule`
-in the directory `examples/` of any NEST 2.x source distribution.
-----
+---
+
+**Please note that the code in this repository is compatible with NEST master
+(aka 3.0) only. For earlier versions of NEST, see the extension module example
+in `examples/MyModule` of any NEST 2.x source distribution.**
+
+---
 
 This repository contains an example extension module (i.e a "plugin") for
 the [NEST Simulator](https://nest-simulator.org). Extension modules allow

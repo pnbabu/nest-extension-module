@@ -38,6 +38,13 @@ if [ "$xNEST_BUILD_COMPILER" = "CLANG" ]; then
     export CXX=clang++-11
 fi
 
+if [ "$(uname -s)" = 'Linux' ]; then
+    CONFIGURE_MPI="-Dwith-mpi=ON"
+    CONFIGURE_OPENMP="-Dwith-openmp=ON"
+else
+    CONFIGURE_MPI="-Dwith-mpi=OFF"
+    CONFIGURE_OPENMP="-Dwith-openmp=OFF"
+
 SOURCEDIR=$PWD
 echo "SOURCEDIR = $SOURCEDIR"
 cd ..
@@ -85,7 +92,8 @@ mkdir build && cd build
 cmake \
     -Dwith-optimize=ON -Dwith-warning=ON \
     -Dwith-nest=$NEST_RESULT/bin/nest-config \
-    -Dwith-mpi=ON \
+    $CONFIGURE_MPI \
+    $CONFIGURE_OPENMP \
     -DPYTHON_LIBRARY=$PYTHON_LIBRARY \
     -DPYTHON_INCLUDE_DIR=$PYTHON_INCLUDE_DIR \
     -DCMAKE_INSTALL_PREFIX=$NEST_RESULT \
@@ -93,7 +101,6 @@ cmake \
 
 VERBOSE=1 make -j 2
 make install
-
 
 # TODO: replace by proper testsuite!
 . $NEST_RESULT/bin/nest_vars.sh

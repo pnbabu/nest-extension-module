@@ -79,7 +79,8 @@ echo "NEST_RESULT = $NEST_RESULT"
 mkdir build && cd build
 cmake \
     -Dwith-optimize=ON -Dwith-warning=ON \
-    -Dwith-mpi=ON \
+    $CONFIGURE_MPI \
+    $CONFIGURE_OPENMP \
     -DPYTHON_LIBRARY=$PYTHON_LIBRARY \
     -DPYTHON_INCLUDE_DIR=$PYTHON_INCLUDE_DIR \
     -DCMAKE_INSTALL_PREFIX=$NEST_RESULT\

@@ -44,6 +44,7 @@ if [ "$(uname -s)" = 'Linux' ]; then
 else
     CONFIGURE_MPI="-Dwith-mpi=OFF"
     CONFIGURE_OPENMP="-Dwith-openmp=OFF"
+fi
 
 SOURCEDIR=$PWD
 echo "SOURCEDIR = $SOURCEDIR"

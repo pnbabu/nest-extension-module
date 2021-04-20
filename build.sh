@@ -29,10 +29,10 @@
 set -e
 
 # We need to do this, because  update-alternatives is not available on MacOS
-if [[ $OSTYPE = darwin* ]]; then
-  export CC=$(ls /usr/local/bin/gcc-* | grep '^/usr/local/bin/gcc-\d$')
-  export CXX=$(ls /usr/local/bin/g++-* | grep '^/usr/local/bin/g++-\d$')
-fi
+# if [[ $OSTYPE = darwin* ]]; then
+#   export CC=$(ls /usr/local/bin/gcc-* | grep '^/usr/local/bin/gcc-\d$')
+#   export CXX=$(ls /usr/local/bin/g++-* | grep '^/usr/local/bin/g++-\d$')
+# fi
 
 SOURCEDIR=$PWD
 cd ..

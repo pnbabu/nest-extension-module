@@ -29,12 +29,25 @@
 set -e
 
 # We need to do this, because  update-alternatives is not available on MacOS
-if [[ $OSTYPE = darwin* ]]; then
-  export CC=$(ls /usr/local/bin/gcc-* | grep '^/usr/local/bin/gcc-\d$')
-  export CXX=$(ls /usr/local/bin/g++-* | grep '^/usr/local/bin/g++-\d$')
+# if [[ $OSTYPE = darwin* ]]; then
+#   export CC=$(ls /usr/local/bin/gcc-* | grep '^/usr/local/bin/gcc-\d$')
+#   export CXX=$(ls /usr/local/bin/g++-* | grep '^/usr/local/bin/g++-\d$')
+# fi
+if [ "$xNEST_BUILD_COMPILER" = "CLANG" ]; then
+    export CC=clang-11
+    export CXX=clang++-11
+fi
+
+if [ "$(uname -s)" = 'Linux' ]; then
+    CONFIGURE_MPI="-Dwith-mpi=ON"
+    CONFIGURE_OPENMP="-Dwith-openmp=ON"
+else
+    CONFIGURE_MPI="-Dwith-mpi=OFF"
+    CONFIGURE_OPENMP="-Dwith-openmp=OFF"
 fi
 
 SOURCEDIR=$PWD
+echo "SOURCEDIR = $SOURCEDIR"
 cd ..
 
 # Install current NEST version.
@@ -51,17 +64,26 @@ echo "--> Detected PYTHON_INCLUDE_DIR=$PYTHON_INCLUDE_DIR"
 # Explicitly allow MPI oversubscription. This is required by Open MPI versions > 3.0.
 # Not having this in place leads to a "not enough slots available" error.
 cp extras/nestrc.sli ~/.nestrc
-if [[ "$OSTYPE" = "darwin"* ]] ; then
-  sed -i -e 's/mpirun -np/mpirun --oversubscribe -np/g' ~/.nestrc
+# if [[ "$OSTYPE" = "darwin"* ]] ; then
+#   sed -i -e 's/mpirun -np/mpirun --oversubscribe -np/g' ~/.nestrc
+# fi
+sed -i -e 's/mpirun -np/mpirun --oversubscribe -np/g' ~/.nestrc
+NEST_RESULT=result
+if [ "$(uname -s)" = 'Linux' ]; then
+    NEST_RESULT=$(readlink -f $NEST_RESULT)
+else
+    NEST_RESULT=$(greadlink -f $NEST_RESULT)
 fi
-
+mkdir "$NEST_RESULT"
+echo "NEST_RESULT = $NEST_RESULT"
 mkdir build && cd build
 cmake \
     -Dwith-optimize=ON -Dwith-warning=ON \
-    -Dwith-mpi=ON \
+    $CONFIGURE_MPI \
+    $CONFIGURE_OPENMP \
     -DPYTHON_LIBRARY=$PYTHON_LIBRARY \
     -DPYTHON_INCLUDE_DIR=$PYTHON_INCLUDE_DIR \
-    -DCMAKE_INSTALL_PREFIX=$HOME/install \
+    -DCMAKE_INSTALL_PREFIX=$NEST_RESULT\
     ..
 
 VERBOSE=1 make -j 2
@@ -71,17 +93,18 @@ cd $SOURCEDIR
 mkdir build && cd build
 cmake \
     -Dwith-optimize=ON -Dwith-warning=ON \
-    -Dwith-nest=$HOME/install/bin/nest-config \
-    -Dwith-mpi=ON \
-    $CONFIGURE_PYTHON \
-    -DCMAKE_INSTALL_PREFIX=$HOME/install \
+    -Dwith-nest=$NEST_RESULT/bin/nest-config \
+    $CONFIGURE_MPI \
+    $CONFIGURE_OPENMP \
+    -DPYTHON_LIBRARY=$PYTHON_LIBRARY \
+    -DPYTHON_INCLUDE_DIR=$PYTHON_INCLUDE_DIR \
+    -DCMAKE_INSTALL_PREFIX=$NEST_RESULT \
     ..
 
 VERBOSE=1 make -j 2
 make install
 
-
 # TODO: replace by proper testsuite!
-. $HOME/install/bin/nest_vars.sh
+. $NEST_RESULT/bin/nest_vars.sh
 python -c 'import nest; nest.Install("mymodule")'
 exit $?

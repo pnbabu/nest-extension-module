@@ -197,7 +197,7 @@ mynest::pif_psc_alpha::init_buffers_()
 }
 
 void
-mynest::pif_psc_alpha::calibrate()
+mynest::pif_psc_alpha::pre_run_hook()
 {
   B_.logger_.init();
 

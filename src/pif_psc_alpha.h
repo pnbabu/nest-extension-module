@@ -88,7 +88,7 @@ Hans Ekkehard Plesser, based on iaf_psc_alpha
 
 SeeAlso: iaf_psc_delta, iaf_psc_exp, iaf_psc_alpha
 */
-class pif_psc_alpha : public nest::Archiving_Node
+class pif_psc_alpha : public nest::ArchivingNode
 {
 public:
   /**
@@ -139,11 +139,6 @@ public:
   void set_status( const DictionaryDatum& ) override;
 
 private:
-  //! Reset parameters and state of neuron.
-
-  //! Reset state of neuron.
-  void init_state_( const Node& proto ) override;
-
   //! Reset internal buffers of neuron.
   void init_buffers_() override;
 
@@ -382,7 +377,7 @@ pif_psc_alpha::get_status( DictionaryDatum& d ) const
   S_.get( d );
 
   // get information managed by parent class
-  Archiving_Node::get_status( d );
+  ArchivingNode::get_status( d );
 
   ( *d )[ nest::names::recordables ] = recordablesMap_.get_list();
 }
@@ -399,7 +394,7 @@ pif_psc_alpha::set_status( const DictionaryDatum& d )
   // write them back to (P_, S_) before we are also sure that
   // the properties to be set in the parent class are internally
   // consistent.
-  Archiving_Node::set_status( d );
+  ArchivingNode::set_status( d );
 
   // if we get here, temporaries contain consistent set of properties
   P_ = ptmp;

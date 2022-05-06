@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# travis_build.sh
+# build.sh
 #
 # This file is part of the NEST example module.
 #
@@ -20,19 +20,14 @@
 # along with NEST.  If not, see <http://www.gnu.org/licenses/>.
 
 
-# This shell script is part of the NEST example module Travis CI build
-# and test environment. It is invoked by the top-level Travis script
-# '.travis.yml'.
+# This shell script is part of the NEST example module Github Actions build
+# and test environment. It is invoked by the top-level script '.github/workflows/build.yml'.
 #
 
 # Exit shell if any subcommand or pipline returns a non-zero status.
 set -e
 
 # We need to do this, because  update-alternatives is not available on MacOS
-# if [[ $OSTYPE = darwin* ]]; then
-#   export CC=$(ls /usr/local/bin/gcc-* | grep '^/usr/local/bin/gcc-\d$')
-#   export CXX=$(ls /usr/local/bin/g++-* | grep '^/usr/local/bin/g++-\d$')
-# fi
 if [ "$xNEST_BUILD_COMPILER" = "CLANG" ]; then
     export CC=clang-11
     export CXX=clang++-11
@@ -64,9 +59,6 @@ echo "--> Detected PYTHON_INCLUDE_DIR=$PYTHON_INCLUDE_DIR"
 # Explicitly allow MPI oversubscription. This is required by Open MPI versions > 3.0.
 # Not having this in place leads to a "not enough slots available" error.
 cp extras/nestrc.sli ~/.nestrc
-# if [[ "$OSTYPE" = "darwin"* ]] ; then
-#   sed -i -e 's/mpirun -np/mpirun --oversubscribe -np/g' ~/.nestrc
-# fi
 sed -i -e 's/mpirun -np/mpirun --oversubscribe -np/g' ~/.nestrc
 NEST_RESULT=result
 if [ "$(uname -s)" = 'Linux' ]; then
@@ -104,7 +96,6 @@ cmake \
 VERBOSE=1 make -j 2
 make install
 
-# TODO: replace by proper testsuite!
 . $NEST_RESULT/bin/nest_vars.sh
 python -c 'import nest; nest.Install("mymodule")'
 exit $?

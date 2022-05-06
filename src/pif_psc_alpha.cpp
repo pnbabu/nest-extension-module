@@ -161,7 +161,7 @@ mynest::pif_psc_alpha::Buffers_::Buffers_( const Buffers_&, pif_psc_alpha& n )
  * ---------------------------------------------------------------- */
 
 mynest::pif_psc_alpha::pif_psc_alpha()
-  : Archiving_Node()
+  : ArchivingNode()
   , P_()
   , S_( P_ )
   , B_( *this )
@@ -170,7 +170,7 @@ mynest::pif_psc_alpha::pif_psc_alpha()
 }
 
 mynest::pif_psc_alpha::pif_psc_alpha( const pif_psc_alpha& n )
-  : Archiving_Node( n )
+  : ArchivingNode( n )
   , P_( n.P_ )
   , S_( n.S_ )
   , B_( n.B_, *this )
@@ -180,13 +180,6 @@ mynest::pif_psc_alpha::pif_psc_alpha( const pif_psc_alpha& n )
 /* ----------------------------------------------------------------
  * Node initialization functions
  * ---------------------------------------------------------------- */
-
-void
-mynest::pif_psc_alpha::init_state_( const Node& proto )
-{
-  const auto& pr = downcast< pif_psc_alpha >( proto );
-  S_ = pr.S_;
-}
 
 void
 mynest::pif_psc_alpha::init_buffers_()

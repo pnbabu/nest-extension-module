@@ -49,13 +49,6 @@ cd ..
 git clone https://github.com/nest/nest-simulator.git
 cd nest-simulator
 
-PYTHON_INCLUDE_DIR=`python3 -c "import sysconfig; print(sysconfig.get_path('include'))"`
-PYLIB_BASE=lib`basename $PYTHON_INCLUDE_DIR`
-PYLIB_DIR=$(dirname `sed 's/include/lib/' <<< $PYTHON_INCLUDE_DIR`)
-PYTHON_LIBRARY=`find $PYLIB_DIR \( -name $PYLIB_BASE.so -o -name $PYLIB_BASE.dylib \) -print -quit`
-echo "--> Detected PYTHON_LIBRARY=$PYTHON_LIBRARY"
-echo "--> Detected PYTHON_INCLUDE_DIR=$PYTHON_INCLUDE_DIR"
-
 # Explicitly allow MPI oversubscription. This is required by Open MPI versions > 3.0.
 # Not having this in place leads to a "not enough slots available" error.
 NEST_RESULT=result
@@ -71,8 +64,6 @@ cmake \
     -Dwith-optimize=ON -Dwith-warning=ON \
     $CONFIGURE_MPI \
     $CONFIGURE_OPENMP \
-    -DPYTHON_LIBRARY=$PYTHON_LIBRARY \
-    -DPYTHON_INCLUDE_DIR=$PYTHON_INCLUDE_DIR \
     -DCMAKE_INSTALL_PREFIX=$NEST_RESULT\
     ..
 
@@ -86,9 +77,6 @@ cmake \
     -Dwith-nest=$NEST_RESULT/bin/nest-config \
     $CONFIGURE_MPI \
     $CONFIGURE_OPENMP \
-    -DPYTHON_LIBRARY=$PYTHON_LIBRARY \
-    -DPYTHON_INCLUDE_DIR=$PYTHON_INCLUDE_DIR \
-    -DCMAKE_INSTALL_PREFIX=$NEST_RESULT \
     ..
 
 VERBOSE=1 make -j 2

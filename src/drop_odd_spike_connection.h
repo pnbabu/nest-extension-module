@@ -57,6 +57,10 @@ public:
   //! Shortcut for base class
   using ConnectionBase = nest::Connection< targetidentifierT >;
 
+  static constexpr nest::ConnectionModelProperties properties = nest::ConnectionModelProperties::HAS_DELAY
+    | nest::ConnectionModelProperties::IS_PRIMARY | nest::ConnectionModelProperties::SUPPORTS_HPC
+    | nest::ConnectionModelProperties::SUPPORTS_LBL;
+
   /**
    * Default Constructor.
    * Sets default values for all parameters. Needed by GenericConnectorModel.
@@ -154,6 +158,8 @@ public:
   }
 };
 
+template < typename targetidentifierT >
+constexpr nest::ConnectionModelProperties DropOddSpikeConnection< targetidentifierT >::properties;
 
 template < typename targetidentifierT >
 inline void

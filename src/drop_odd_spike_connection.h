@@ -93,14 +93,14 @@ public:
   {
   public:
     using nest::ConnTestDummyNodeBase::handles_test_event;
-    nest::port
-    handles_test_event( nest::SpikeEvent&, nest::rport ) override
+    size_t
+    handles_test_event( nest::SpikeEvent&, size_t ) override
     {
       return nest::invalid_port;
     }
 
-    nest::port
-    handles_test_event( nest::DSSpikeEvent&, nest::rport ) override
+    size_t
+    handles_test_event( nest::DSSpikeEvent&, size_t ) override
     {
       return nest::invalid_port;
     }
@@ -121,7 +121,7 @@ public:
    * @param receptor_type  Receptor type for connection
    */
   void
-  check_connection( nest::Node& s, nest::Node& t, nest::rport receptor_type, const CommonPropertiesType& )
+  check_connection( nest::Node& s, nest::Node& t, size_t receptor_type, const CommonPropertiesType& )
   {
     ConnTestDummyNode dummy_target;
     ConnectionBase::check_connection_( dummy_target, s, t, receptor_type );
@@ -133,7 +133,7 @@ public:
    * @param t Thread
    * @param cp Common properties to all synapses.
    */
-  void send( nest::Event& e, nest::thread t, const CommonPropertiesType& cp );
+  void send( nest::Event& e, size_t t, const CommonPropertiesType& cp );
 
   // The following methods contain mostly fixed code to forward the
   // corresponding tasks to corresponding methods in the base class and the w_
@@ -163,7 +163,7 @@ constexpr nest::ConnectionModelProperties DropOddSpikeConnection< targetidentifi
 
 template < typename targetidentifierT >
 inline void
-DropOddSpikeConnection< targetidentifierT >::send( nest::Event& e, nest::thread t, const CommonPropertiesType& props )
+DropOddSpikeConnection< targetidentifierT >::send( nest::Event& e, size_t t, const CommonPropertiesType& props )
 {
   if ( e.get_stamp().get_steps() % 2 ) // stamp is odd, drop it
   {

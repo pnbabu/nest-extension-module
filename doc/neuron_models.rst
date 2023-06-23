@@ -76,7 +76,7 @@ A typical update method of a neuron model will look like this:
 
    void nest::iaf_neuron::update(Time const & origin, const long_t from, const long_t to)
    {
-     assert(to >= 0 && (delay) from < Scheduler::get_min_delay());
+     assert(to >= 0 && from < Scheduler::get_min_delay());
      assert(from < to);
      for ( long_t lag = from ; lag < to ; ++lag )
      {
@@ -139,7 +139,7 @@ model should send SpikeEvents, this function would look like this:
 
 .. code-block:: C++
 
-   port my_model::check_connection(Node& r, port rp)
+   size_t my_model::check_connection(Node& r, size_t rp)
    {
      SpikeEvent e;
      e.set_sender(*this);

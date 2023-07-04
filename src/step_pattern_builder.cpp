@@ -132,7 +132,7 @@ mynest::StepPatternBuilder::connect_()
             continue;
           }
           nest::Node* const target = nest::kernel().node_manager.get_node_or_proxy( ( *target_it ).node_id, tid );
-          const nest::thread target_thread = target->get_thread();
+          const size_t target_thread = target->get_thread();
           single_connect_( ( *source_it ).node_id, *target, target_thread, rng );
         }
       }

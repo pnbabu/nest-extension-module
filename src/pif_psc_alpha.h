@@ -118,7 +118,7 @@ public:
   /**
    * Used to validate that we can send SpikeEvent to desired target:port.
    */
-  nest::port send_test_event( nest::Node&, nest::port, nest::synindex, bool ) override;
+  size_t send_test_event( nest::Node&, size_t, nest::synindex, bool ) override;
 
   /**
    * @defgroup mynest_handle Functions handling incoming events.
@@ -130,9 +130,9 @@ public:
   void handle( nest::CurrentEvent& ) override;       //! accept input current
   void handle( nest::DataLoggingRequest& ) override; //! allow recording with multimeter
 
-  nest::port handles_test_event( nest::SpikeEvent&, nest::port ) override;
-  nest::port handles_test_event( nest::CurrentEvent&, nest::port ) override;
-  nest::port handles_test_event( nest::DataLoggingRequest&, nest::port ) override;
+  size_t handles_test_event( nest::SpikeEvent&, size_t ) override;
+  size_t handles_test_event( nest::CurrentEvent&, size_t ) override;
+  size_t handles_test_event( nest::DataLoggingRequest&, size_t ) override;
   /** @} */
 
   void get_status( DictionaryDatum& ) const override;
@@ -314,8 +314,8 @@ private:
   /** @} */
 };
 
-inline nest::port
-mynest::pif_psc_alpha::send_test_event( nest::Node& target, nest::port receptor_type, nest::synindex, bool )
+inline size_t
+mynest::pif_psc_alpha::send_test_event( nest::Node& target, size_t receptor_type, nest::synindex, bool )
 {
   // You should usually not change the code in this function.
   // It confirms that the target of connection @c c accepts @c SpikeEvent on
@@ -325,8 +325,8 @@ mynest::pif_psc_alpha::send_test_event( nest::Node& target, nest::port receptor_
   return target.handles_test_event( e, receptor_type );
 }
 
-inline nest::port
-mynest::pif_psc_alpha::handles_test_event( nest::SpikeEvent&, nest::port receptor_type )
+inline size_t
+mynest::pif_psc_alpha::handles_test_event( nest::SpikeEvent&, size_t receptor_type )
 {
   // You should usually not change the code in this function.
   // It confirms to the connection management system that we are able
@@ -339,8 +339,8 @@ mynest::pif_psc_alpha::handles_test_event( nest::SpikeEvent&, nest::port recepto
   return 0;
 }
 
-inline nest::port
-mynest::pif_psc_alpha::handles_test_event( nest::CurrentEvent&, nest::port receptor_type )
+inline size_t
+mynest::pif_psc_alpha::handles_test_event( nest::CurrentEvent&, size_t receptor_type )
 {
   // You should usually not change the code in this function.
   // It confirms to the connection management system that we are able
@@ -353,8 +353,8 @@ mynest::pif_psc_alpha::handles_test_event( nest::CurrentEvent&, nest::port recep
   return 0;
 }
 
-inline nest::port
-mynest::pif_psc_alpha::handles_test_event( nest::DataLoggingRequest& dlr, nest::port receptor_type )
+inline size_t
+mynest::pif_psc_alpha::handles_test_event( nest::DataLoggingRequest& dlr, size_t receptor_type )
 {
   // You should usually not change the code in this function.
   // It confirms to the connection management system that we are able

@@ -109,21 +109,13 @@ mynest::MyModule::init( SLIInterpreter* i )
   /* Register a neuron or device model.
      Give node type as template argument and the name as second argument.
   */
-  nest::kernel().model_manager.register_node_model< pif_psc_alpha >( "pif_psc_alpha" );
+  register_pif_psc_alpha( "pif_psc_alpha" );
 
   /* Register a synapse type.
      Give synapse type as template argument and the name as second argument.
-
-     There are two choices for the template argument:
-         - nest::TargetIdentifierPtrRport
-         - nest::TargetIdentifierIndex
-     The first is the standard and you should usually stick to it.
-     nest::TargetIdentifierIndex reduces the memory requirement of synapses
-     even further, but limits the number of available rports. Please see
-     Kunkel et al, Front Neurofinfom 8:78 (2014), Sec 3.3.2, for details.
   */
-  nest::register_connection_model< DropOddSpikeConnection >( "drop_odd_synapse" );
-
+  register_drop_odd_spike_connection( "drop_odd_synapse" );
+  
   // Register connection rule.
   nest::kernel().connection_manager.register_conn_builder< StepPatternBuilder >( "step_pattern" );
 

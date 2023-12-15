@@ -3,9 +3,8 @@ NEST Extension Module Example
 
 .. attention::
 
-   Please note that the code in this repository is compatible with NEST master
-   (aka 3.0) only. For earlier versions of NEST, see the extension module example
-   in ``examples/MyModule`` of any NEST 2.x source distribution.
+   This version of the extension module code will not work with NEST
+   3.6 or earlier. It is adapted to NEST Master as of 15 December 2023.
 
 This repository contains an example extension module (i.e a "plugin") for
 the `NEST Simulator <https://nest-simulator.org>`_. Extension modules allow

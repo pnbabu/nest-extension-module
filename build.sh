@@ -27,6 +27,8 @@
 # Exit shell if any subcommand or pipline returns a non-zero status.
 set -e
 
+# THIS BUILD SCRIPT IS OUTDATED!
+
 # We need to do this, because  update-alternatives is not available on MacOS
 if [ "$xNEST_BUILD_COMPILER" = "CLANG" ]; then
     export CC=clang-11

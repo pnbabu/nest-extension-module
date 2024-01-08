@@ -20,8 +20,8 @@
 # Add all your sources here and specify dependencies, e.g., link libraries
 set( MODULE_SOURCES
      mymodule.h mymodule.cpp
-     pif_psc_alpha.cpp pif_psc_alpha.h
-     drop_odd_spike_connection.h
+     pif_psc_alpha.h pif_psc_alpha.cpp
+     drop_odd_spike_connection.h drop_odd_spike_connection.cpp
      step_pattern_builder.h step_pattern_builder.cpp
      recording_backend_socket.h recording_backend_socket.cpp
    )

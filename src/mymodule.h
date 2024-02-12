@@ -20,49 +20,13 @@
  *
  */
 
-#ifndef MYMODULE_H
-#define MYMODULE_H
 
-// Includes from sli:
-#include "slifunction.h"
-#include "slimodule.h"
 
-// Put your stuff into your own namespace.
+// -- Interface to dynamic module loader ---------------------------------------
+
 namespace mynest
 {
+  
+  void mymodule_LTX_register_components();
 
-/**
- * Class defining your model.
- * @note For each model, you must define one such class, with a unique name.
- */
-class MyModule : public SLIModule
-{
-public:
-  // Interface functions ------------------------------------------
-
-  /**
-   * @note The constructor registers the module with the dynamic loader.
-   *       Initialization proper is performed by the init() method.
-   */
-  MyModule();
-
-  /**
-   * @note The destructor does not do much in modules.
-   */
-  ~MyModule() override;
-
-  /**
-   * Initialize module.
-   * @param SLIInterpreter* SLI interpreter
-   */
-  void init( SLIInterpreter* ) override;
-
-  /**
-   * Return the name of your module.
-   */
-  const std::string name() const override;
-
-};
-} // namespace mynest
-
-#endif
+}

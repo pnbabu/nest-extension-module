@@ -132,11 +132,6 @@ execute_process(
     OUTPUT_VARIABLE NEST_STATIC_LIB
     OUTPUT_STRIP_TRAILING_WHITESPACE
 )
-if ( NEST_STATIC_LIB )
-  set( BUILD_SHARED_LIBS OFF )
-else ()
-  set( BUILD_SHARED_LIBS ON )
-endif ()
 
 # Get all linked libraries.
 execute_process(

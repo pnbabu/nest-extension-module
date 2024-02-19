@@ -22,11 +22,8 @@ cmake_minimum_required( VERSION 3.19 )
 list( APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake )
 include( ProcessDependencies )
 
-# Name your module here.
-set( SHORT_NAME my )
-
 # Build the complete module name:
-set( MODULE_NAME ${SHORT_NAME}module )
+set( MODULE_NAME mymodule )
 
 # Specify your module version
 set( MODULE_VERSION_MAJOR 0 )

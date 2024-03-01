@@ -41,11 +41,6 @@ namespace mynest
     ~MyModule() {}
 
     void init() override;
-    
-    std::string name() override { return "mymodyle"; }
-    std::string contact() override { return "info@nest-initiative.org"; }
-    std::string url() override { return "https://github.com/nest/nest-extension-module"; }
-    std::string uri() override { return ""; }
   };
 }
 

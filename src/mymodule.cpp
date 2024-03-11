@@ -34,20 +34,20 @@
 
 namespace mynest
 {
-  class MyModule : public NESTExtensionInterface
+  class MyModule : public nest::NESTExtensionInterface
   {
   public:
     MyModule() {}
     ~MyModule() {}
 
-    void init() override;
+    void initialize() override;
   };
 }
 
 // Define module instance outside of namespace to avoid name-mangling problems
 mynest::MyModule mymodule_LTX_module;
 
-void mynest::MyModule::init()
+void mynest::MyModule::initialize()
 {
   /* Register a neuron or device model.
    */

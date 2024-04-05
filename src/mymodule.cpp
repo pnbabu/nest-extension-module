@@ -59,14 +59,14 @@ void mynest::MyModule::initialize()
 
   // Next three not registered for now, since they do not unload on ResetKernel
   // Register connection rule.
-  //nest::kernel().connection_manager.register_conn_builder< mynest::StepPatternBuilder >( "step_pattern" );
+  nest::kernel().connection_manager.register_conn_builder< mynest::StepPatternBuilder >( "step_pattern" );
 
   // TODO: Not sure how this define should get here, need to think about config file for module.
 #ifdef HAVE_SFML_AUDIO
   // Register recording backends.
-  //nest::kernel().io_manager.register_recording_backend< nest::RecordingBackendSoundClick >( "soundclick" );
+  nest::kernel().io_manager.register_recording_backend< nest::RecordingBackendSoundClick >( "soundclick" );
 #endif
 
-  //nest::kernel().io_manager.register_recording_backend< mynest::RecordingBackendSocket >( "socket" );
+  nest::kernel().io_manager.register_recording_backend< mynest::RecordingBackendSocket >( "socket" );
 }
 

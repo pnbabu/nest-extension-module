@@ -57,7 +57,6 @@ void mynest::MyModule::initialize()
    */
   mynest::register_drop_odd_spike_connection( "drop_odd_synapse" );
 
-  // Next three not registered for now, since they do not unload on ResetKernel
   // Register connection rule.
   nest::kernel().connection_manager.register_conn_builder< mynest::StepPatternBuilder >( "step_pattern" );
 

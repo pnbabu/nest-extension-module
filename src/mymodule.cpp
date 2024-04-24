@@ -38,7 +38,7 @@ namespace mynest
   {
   public:
     MyModule() {}
-    ~MyModule() {}
+    virtual ~MyModule() {}
 
     void initialize() override;
   };

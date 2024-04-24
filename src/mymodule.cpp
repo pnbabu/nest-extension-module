@@ -60,7 +60,6 @@ void mynest::MyModule::initialize()
   // Register connection rule.
   nest::kernel().connection_manager.register_conn_builder< mynest::StepPatternBuilder >( "step_pattern" );
 
-  // TODO: Not sure how this define should get here, need to think about config file for module.
 #ifdef HAVE_SFML_AUDIO
   // Register recording backends.
   nest::kernel().io_manager.register_recording_backend< nest::RecordingBackendSoundClick >( "soundclick" );

@@ -150,7 +150,7 @@ set( CMAKE_INSTALL_DATADIR "${NEST_INSTALL_DATADIR}" CACHE STRING "read-only arc
 
 include( GNUInstallDirs )
 
-# CPack stuff. Required for target `dist`. -- TODO: Do we really need this?
+# CPack stuff. Required for target `dist`.
 set( CPACK_GENERATOR TGZ )
 set( CPACK_SOURCE_GENERATOR TGZ )
 
@@ -181,7 +181,7 @@ set( CPACK_SOURCE_PACKAGE_FILE_NAME ${MODULE_NAME} )
 set( CPACK_PACKAGE_INSTALL_DIRECTORY "${MODULE_NAME} ${MODULE_VERSION}" )
 include( CPack )
 
-# add make dist target -- TODO: Do we want this?
+# add make dist target
 add_custom_target( dist
     COMMAND ${CMAKE_MAKE_PROGRAM} package_source
     # not sure about this... seems, that it will be removed before dist...
@@ -189,7 +189,7 @@ add_custom_target( dist
     COMMENT "Creating a source distribution from ${MODULE_NAME}..."
     )
 
-# check the user link libraries whether installed or not -- TODO: need this?
+# check the user link libraries whether installed or not
 foreach( LINKLIB ${USER_LINK_LIBRARIES} )
   find_library( LIB_${LINKLIB} ${LINKLIB} )
   if( NOT LIB_${LINKLIB} )
@@ -201,7 +201,7 @@ endforeach()
 
 add_subdirectory( src )
 
-# Install help --- based on doc/CMakeLists.txt -- TODO: Help
+# Install help --- based on doc/CMakeLists.txt
 # generation needs review
 # Install only if Py >= 2.7.8 and NEST was installed with help
 if ( ( NOT CMAKE_CROSSCOMPILING )

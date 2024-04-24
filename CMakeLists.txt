@@ -202,7 +202,6 @@ endforeach()
 add_subdirectory( src )
 
 # Install help --- based on doc/CMakeLists.txt
-# generation needs review
 # Install only if Py >= 2.7.8 and NEST was installed with help
 if ( ( NOT CMAKE_CROSSCOMPILING )
      AND PYTHON_EXECUTABLE
